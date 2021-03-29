@@ -1,0 +1,36 @@
+const images = () => {
+    const imgPopup = document.createElement('div');
+    const workSection = document.querySelector('.works');
+    const bigImg = document.createElement('img');
+
+    imgPopup.classList.add('popup');
+
+    workSection.appendChild(imgPopup);
+
+    imgPopup.style.justifyContent = 'center';
+    imgPopup.style.alignItems = 'center';
+    imgPopup.style.display = 'none';
+
+    imgPopup.appendChild(bigImg);
+
+    workSection.addEventListener('click', e => {
+        e.preventDefault();
+
+        const target = e.target;
+
+        if (target && target.classList.contains('preview')) {
+            imgPopup.style.display = 'flex';
+            bigImg.style.height = '90%';
+            const path = target.parentNode.getAttribute('href');
+            bigImg.setAttribute('src', path);
+            document.body.style.overflow = 'hidden';
+        }
+
+        if (target && target.matches('div.popup')) {
+            imgPopup.style.display = 'none';
+            document.body.style.overflow = '';
+        }
+    })
+};
+
+export default images;

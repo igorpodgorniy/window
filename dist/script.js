@@ -17833,6 +17833,31 @@ window.addEventListener('DOMContentLoaded', function () {
 
 /***/ }),
 
+/***/ "./src/js/modules/calcScroll.js":
+/*!**************************************!*\
+  !*** ./src/js/modules/calcScroll.js ***!
+  \**************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+var calcScroll = function calcScroll() {
+  var div = document.createElement('div');
+  div.style.width = '50px';
+  div.style.height = '50px';
+  div.style.overflowY = 'scroll';
+  div.style.visibility = 'hidden';
+  document.body.appendChild(div);
+  var scrollWidth = div.offsetWidth - div.clientWidth;
+  div.remove();
+  return scrollWidth;
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (calcScroll);
+
+/***/ }),
+
 /***/ "./src/js/modules/changeModalState.js":
 /*!********************************************!*\
   !*** ./src/js/modules/changeModalState.js ***!
@@ -17885,8 +17910,6 @@ var changeModalState = function changeModalState(state) {
             state[prop] = item.value;
             break;
         }
-
-        console.log(state);
       });
     });
   }
@@ -18045,10 +18068,14 @@ var forms = function forms(state) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _calcScroll__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./calcScroll */ "./src/js/modules/calcScroll.js");
+
+
 var images = function images() {
   var imgPopup = document.createElement('div');
   var workSection = document.querySelector('.works');
   var bigImg = document.createElement('img');
+  var scroll = Object(_calcScroll__WEBPACK_IMPORTED_MODULE_0__["default"])();
   imgPopup.classList.add('popup');
   workSection.appendChild(imgPopup);
   imgPopup.style.justifyContent = 'center';
@@ -18065,11 +18092,13 @@ var images = function images() {
       var path = target.parentNode.getAttribute('href');
       bigImg.setAttribute('src', path);
       document.body.style.overflow = 'hidden';
+      document.body.style.marginRight = "".concat(scroll, "px");
     }
 
     if (target && target.matches('div.popup')) {
       imgPopup.style.display = 'none';
       document.body.style.overflow = '';
+      document.body.style.marginRight = '0px';
     }
   });
 };
@@ -18089,6 +18118,8 @@ var images = function images() {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! core-js/modules/web.dom-collections.for-each */ "./node_modules/core-js/modules/web.dom-collections.for-each.js");
 /* harmony import */ var core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _calcScroll__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./calcScroll */ "./src/js/modules/calcScroll.js");
+
 
 
 var modals = function modals() {
@@ -18098,6 +18129,7 @@ var modals = function modals() {
     var modal = document.querySelector(modalSelector);
     var close = document.querySelector(closeSelector);
     var windows = document.querySelectorAll('[data-modal]');
+    var scroll = Object(_calcScroll__WEBPACK_IMPORTED_MODULE_1__["default"])();
     trigger.forEach(function (item) {
       item.addEventListener('click', function (e) {
         if (e.target) {
@@ -18109,6 +18141,8 @@ var modals = function modals() {
         });
         modal.style.display = "block";
         document.body.style.overflow = 'hidden'; // document.body.classList.add('modal-open');
+
+        document.body.style.marginRight = "".concat(scroll, "px");
       });
     });
     close.addEventListener('click', function () {
@@ -18117,6 +18151,8 @@ var modals = function modals() {
       });
       modal.style.display = "none";
       document.body.style.overflow = ''; // document.body.classList.remove('modal-open');
+
+      document.body.style.marginRight = '0px';
     });
     modal.addEventListener('click', function (e) {
       if (e.target === modal && closeClickOverlay) {
@@ -18125,6 +18161,8 @@ var modals = function modals() {
         });
         modal.style.display = "none";
         document.body.style.overflow = ''; // document.body.classList.remove('modal-open');
+
+        document.body.style.marginRight = '0px';
       }
     });
   }

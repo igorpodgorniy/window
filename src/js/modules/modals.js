@@ -1,9 +1,12 @@
+import calcScroll from './calcScroll';
+
 const modals = () => {
     function bindModal(triggerSelector, modalSelector, closeSelector, closeClickOverlay = true) {
         const trigger = document.querySelectorAll(triggerSelector);
         const modal = document.querySelector(modalSelector);
         const close = document.querySelector(closeSelector);
         const windows = document.querySelectorAll('[data-modal]');
+        const scroll = calcScroll();
 
         trigger.forEach(item => {
             item.addEventListener('click', e => {
@@ -18,6 +21,7 @@ const modals = () => {
                 modal.style.display = "block";
                 document.body.style.overflow = 'hidden';
                 // document.body.classList.add('modal-open');
+                document.body.style.marginRight = `${scroll}px`;
             });
         });
 
@@ -29,6 +33,7 @@ const modals = () => {
             modal.style.display = "none";
             document.body.style.overflow = '';
             // document.body.classList.remove('modal-open');
+            document.body.style.marginRight = '0px';
         });
 
         modal.addEventListener('click', e => {
@@ -40,6 +45,7 @@ const modals = () => {
                 modal.style.display = "none";
                 document.body.style.overflow = '';
                 // document.body.classList.remove('modal-open');
+                document.body.style.marginRight = '0px';
             }
         });
     }
